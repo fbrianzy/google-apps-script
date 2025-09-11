@@ -9,10 +9,10 @@ function GET_NEWS(kategori, lokasi) {
   lokasi   = (lokasi   || '').toString().trim();
   if (!kategori) return '';
 
-  const START_DATE = '2025-08-01';
-  const END_DATE_EXCL = '2025-09-01';
+  const START_DATE = '2025-08-01'; // start date
+  const END_DATE_EXCL = '2025-09-01'; // end date
   const MAX_PER_CATEGORY = 2;
-  const hl = 'id', gl = 'ID', ceid = 'ID:id';
+  const hl = 'id', gl = 'ID', ceid = 'ID:id'; // geolocation
 
   // fallback lokasi opsional
   const LOCATION = lokasi || 'Sidoarjo';
@@ -169,3 +169,4 @@ function sanitizePublisherUrl(raw) {
     return raw;
   }
 }
+
