@@ -6,11 +6,11 @@ This repository contains a collection of custom Google Apps Scripts designed to 
 
 Below is a list of the available scripts in this collection. For detailed information, setup, and usage examples, please refer to the `README.md` file within each script's directory.
 
-  - **[get-latlong](https://www.google.com/search?q=./get-latlong/)**: A set of custom functions (`GetLatitude`, `GetLongitude`) to retrieve geographic coordinates from a text-based address.
-  - **[get-news-rss](https://www.google.com/search?q=./get-news-rss/)**: A custom function (`GET_NEWS`) that fetches and cleans news article URLs from the Google News RSS feed for a predefined period (August 2025).
-  - **[get-currency-rate](https://www.google.com/search?q=./get-currency-rate/)**: A custom function (`GET_CURRENCY_RATE`) to fetch real-time currency exchange rates from a public API.
-  - **[create-docs-from-sheet](https://www.google.com/search?q=./create-docs-from-sheet/)**: A script that adds a custom menu to generate Google Docs from each row in a sheet, perfect for batch document creation.
-  - **[webhook-logger](https://www.google.com/search?q=./webhook-logger/)**: A Web App that logs incoming `HTTP POST` request data (webhooks) into a Google Sheet.
+  - **[get-latlong](https://github.com/fbrianzy/google-apps-script/tree/main/get-latlong)**: A set of custom functions (`GetLatitude`, `GetLongitude`) to retrieve geographic coordinates from a text-based address.
+  - **[get-news-rss](https://github.com/fbrianzy/google-apps-script/tree/main/get-news-rss/)**: A custom function (`GET_NEWS`) that fetches and cleans news article URLs from the Google News RSS feed for a predefined period (August 2025).
+  - **[get-currency-rate](https://github.com/fbrianzy/google-apps-script/tree/main/get-currency-rate/)**: A custom function (`GET_CURRENCY_RATE`) to fetch real-time currency exchange rates from a public API.
+  - **[create-docs-from-sheet](https://github.com/fbrianzy/google-apps-script/tree/main/create-docs-from-sheet/)**: A script that adds a custom menu to generate Google Docs from each row in a sheet, perfect for batch document creation.
+  - **[webhook-logger](https://github.com/fbrianzy/google-apps-script/tree/main/webhook-logger/)**: A Web App that logs incoming `HTTP POST` request data (webhooks) into a Google Sheet.
 
 ## General Installation
 
