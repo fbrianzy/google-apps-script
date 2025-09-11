@@ -7,6 +7,7 @@ This repository contains a collection of custom Google Apps Scripts designed to 
 Below is a list of the available scripts in this collection. For detailed information, setup, and usage examples, please refer to the `README.md` file within each script's directory.
 
   - **[get-latlong](https://www.google.com/search?q=./get-latlong/)**: A set of custom functions (`GetLatitude`, `GetLongitude`) to retrieve geographic coordinates from a text-based address.
+  - **[get-news-rss](https://www.google.com/search?q=./get-news-rss/)**: A custom function (`GET_NEWS`) that fetches and cleans news article URLs from the Google News RSS feed for a predefined period (August 2025).
 
 ## General Installation
 
