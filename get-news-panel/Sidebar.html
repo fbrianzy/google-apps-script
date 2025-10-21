@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+<head>
+  <base target="_top">
+  <meta charset="utf-8">
+  <style>
+    body { font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; padding:12px; }
+    h2 { margin:0 0 12px; font-size:16px; }
+    .group { border:1px solid #e5e7eb; border-radius:10px; padding:10px; margin-bottom:10px; }
+    .title { font-weight:700; margin-bottom:8px; }
+    .row { display:flex; gap:8px; }
+    .field { margin-bottom:8px; flex:1; }
+    label { display:block; font-weight:600; margin-bottom:4px; }
+    input[type="text"], input[type="number"], input[type="date"] {
+      width:100%; padding:8px; border:1px solid #d1d5db; border-radius:8px; box-sizing:border-box;
+    }
+    .footer { display:flex; gap:8px; margin-top:10px; }
+    button { padding:8px 12px; border:0; border-radius:8px; cursor:pointer; }
+    .primary { background:#1a73e8; color:#fff; }
+    .ghost { background:#f3f4f6; color:#111827; }
+    .status { margin-top:8px; min-height:20px; color:#1967d2; }
+    small { color:#6b7280; }
+  </style>
+</head>
+<body>
+  <h2>Google News Panel</h2>
+
+  <!-- 1) Sheet name -->
+  <div class="group">
+    <div class="title">1) Sheet Name</div>
+    <div class="field">
+      <label>Sheet Name (optional)</label>
+      <input type="text" id="sheetName" placeholder="Leave blank for active sheet">
+    </div>
+  </div>
+
+  <!-- 2) Category column (A1 start & end) -->
+  <div class="group">
+    <div class="title">2) Category Column</div>
+    <div class="row">
+      <div class="field">
+        <label>Start Row (A1)</label>
+        <input type="text" id="kategoriStart" placeholder="e.g., B2">
+      </div>
+      <div class="field">
+        <label>End Row (A1)</label>
+        <input type="text" id="kategoriEnd" placeholder="e.g., B100">
+      </div>
+    </div>
+    <small>Use the same column for start & end (e.g., B2 → B100).</small>
+  </div>
+
+  <!-- 3) Region single cell -->
+  <div class="group">
+    <div class="title">3) Region (single cell)</div>
+    <div class="field">
+      <label>Region (A1)</label>
+      <input type="text" id="regionCell" placeholder="e.g., C1">
+    </div>
+    <small>If empty, defaults to "Sidoarjo".</small>
+  </div>
+
+  <!-- 4) Output column (A1 start & end) -->
+  <div class="group">
+    <div class="title">4) Output Column</div>
+    <div class="row">
+      <div class="field">
+        <label>Start Row (A1)</label>
+        <input type="text" id="outputStart" placeholder="e.g., D2">
+      </div>
+      <div class="field">
+        <label>End Row (A1)</label>
+        <input type="text" id="outputEnd" placeholder="e.g., D100">
+      </div>
+    </div>
+    <small>Output row count must equal category row count.</small>
+  </div>
+
+  <!-- 5) Date range -->
+  <div class="group">
+    <div class="title">5) Date Range</div>
+    <div class="row">
+      <div class="field">
+        <label>Start Date</label>
+        <input type="date" id="startDate" value="2025-09-01">
+      </div>
+      <div class="field">
+        <label>End Date (exclusive)</label>
+        <input type="date" id="endDateExcl" value="2025-10-01">
+      </div>
+    </div>
+  </div>
+
+  <!-- 6) Max links -->
+  <div class="group">
+    <div class="title">6) Settings</div>
+    <div class="row">
+      <div class="field">
+        <label>Max Links per Category</label>
+        <input type="number" id="maxPerCategory" min="1" value="2">
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <button class="primary" id="runBtn">Run</button>
+    <button class="ghost" id="closeBtn">Close</button>
+  </div>
+
+  <div class="status" id="status"></div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    $('closeBtn').addEventListener('click', () => google.script.host.close());
+
+    $('runBtn').addEventListener('click', () => {
+      const status = $('status');
+      status.textContent = 'Processing...';
+
+      const payload = {
+        sheetName: $('sheetName').value.trim() || null,
+        kategoriStart: $('kategoriStart').value.trim(),
+        kategoriEnd: $('kategoriEnd').value.trim(),
+        regionCell: $('regionCell').value.trim() || '',
+        outputStart: $('outputStart').value.trim(),
+        outputEnd: $('outputEnd').value.trim(),
+        startDate: $('startDate').value,
+        endDateExcl: $('endDateExcl').value,
+        maxPerCategory: parseInt($('maxPerCategory').value, 10) || 2
+      };
+
+      google.script.run
+        .withSuccessHandler((res) => {
+          status.textContent = (res && res.message) ? res.message : 'Done.';
+        })
+        .withFailureHandler((err) => {
+          status.textContent = 'Failed: ' + (err && err.message ? err.message : err);
+        })
+        .runBatchA1(payload);
+    });
+  </script>
+</body>
+</html>
