@@ -3,14 +3,14 @@
 A Google Sheets add-on panel that automates fetching Google News RSS results for each category and location, with smart caching and link cleanup.
 Built using **Google Apps Script** with a clean sidebar GUI.
 
-## ✨ Features
+## Features
 - Fetch news links by **category & region (single cell)** within a **date range**
 - Supports **A1-based input** (e.g., `B2` → `B100`)
 - **Batch mode** with caching (`CacheService`, 30 min)
 - Sidebar GUI (HTML Service)
 - Works with multiple sheets
 
-## 🧠 Usage
+## Usage
 1. Open your Google Sheet → **Extensions → Apps Script**
 2. Create two files: `Code.gs` and `Sidebar.html` and paste the code from this folder
 3. Reload the spreadsheet → you’ll see menu **“News Tools”**
@@ -25,7 +25,7 @@ Built using **Google Apps Script** with a clean sidebar GUI.
 
 Results will appear in your chosen output column.
 
-## 🧪 Custom Function
+## Custom Function
 You can still use it directly in a cell:
 ```js
 =GET_NEWS(B2, "Sidoarjo")
