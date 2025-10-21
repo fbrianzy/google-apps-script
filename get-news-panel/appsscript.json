@@ -1,0 +1,21 @@
+{
+  "timeZone": "Asia/Jakarta",
+  "dependencies": {},
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8",
+  "webapp": {
+    "executeAs": "USER_DEPLOYING",
+    "access": "ANYONE"
+  },
+  "addOns": {
+    "common": {
+      "name": "Google News Panel",
+      "logoUrl": "https://ssl.gstatic.com/docs/script/images/logo/script-64.png",
+      "layoutProperties": {
+        "primaryColor": "#1a73e8",
+        "secondaryColor": "#f3f4f6"
+      },
+      "useLocaleFromApp": true
+    }
+  }
+}
