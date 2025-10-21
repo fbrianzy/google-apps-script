@@ -1,4 +1,4 @@
-# 📰 Google News Panel (Apps Script)
+# Google News Panel (Apps Script)
 
 A Google Sheets add-on panel that automates fetching Google News RSS results for each category and location, with smart caching and link cleanup.
 Built using **Google Apps Script** with a clean sidebar GUI.
@@ -31,5 +31,5 @@ You can still use it directly in a cell:
 =GET_NEWS(B2, "Sidoarjo")
 ```
 
-## 📄 License
-MIT License © 2025 Bagus Febriansyah Pratama
+## License
+MIT License © 2025 fbrianzy
