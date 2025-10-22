@@ -1,9 +1,9 @@
-# 🧾 Invoice Generator Panel (Google Apps Script)
+# Invoice Generator Panel (Google Apps Script)
 
 Generate professional invoices from Google Sheets to Google Docs/PDF via a clean Sidebar Panel. 
 Supports column mapping, template placeholders, auto-numbering, tax/discount, status, generated date, and optional email to client.
 
-## ✨ Features
+## Features
 - Sidebar panel (no CLASP required) with column mapping (letters) and options.
 - Generate **Google Docs** from a **template** + export **PDF** to Drive.
 - Auto-numbering (`INV-YYYY-####`) or pull invoice number from a sheet column.
@@ -11,14 +11,14 @@ Supports column mapping, template placeholders, auto-numbering, tax/discount, st
 - Optional email to client with the PDF attached.
 - Works on **V8 runtime**, minimal, production-ready.
 
-## 🏁 Quickstart
+## Quickstart
 1. Open your Google Sheet → **Extensions → Apps Script**.
 2. Create flat files one-by-one (no folders) and paste the script contents from this repo.
 3. Add your Google Docs template; include placeholders (see below).
 4. Reload the Sheet → menu **Invoice Tools** → **Open Panel**.
 5. Fill the panel (IDs, rows, column letters, options) → **Validate** → **Preview** → **Generate**.
 
-## 🧩 Column Mapping (example)
+## Column Mapping (example)
 | Column | Example Letter |
 |---|---|
 | Client Name | `B` |
@@ -34,7 +34,7 @@ Supports column mapping, template placeholders, auto-numbering, tax/discount, st
 | Status (output, optional) | `L` |
 | Invoice Number (optional, read from sheet) | `A` |
 
-## 🧱 Template Placeholders (Google Docs)
+## Template Placeholders (Google Docs)
 Add these tokens to your template (plain text):
 ```
 {{INVOICE_NUMBER}}
@@ -60,7 +60,7 @@ Notes:
 ```
 > `{{ITEMS_TABLE}}` will be replaced by a table with **Description / Qty / Unit Price / Amount**.
 
-## 🔐 Permissions (Scopes)
+## Permissions (Scopes)
 This project requires these OAuth scopes (declared in `appsscript.json`):
 - `spreadsheets.currentonly` – read/write the current spreadsheet.
 - `documents` – generate and edit Google Docs.
@@ -68,7 +68,7 @@ This project requires these OAuth scopes (declared in `appsscript.json`):
 - `script.container.ui` – show the sidebar panel.
 - `script.send_mail` – send email with PDF attachment (optional feature).
 
-## 🧪 Dummy Data (for testing)
+## Dummy Data (for testing)
 Create a sheet named **`Invoices`** and paste the following rows (starting at row 1):
 ```
 A: Invoice No | B: Client Name | C: Client Email | D: Invoice Date | E: Due Date | F: Currency | G: Items (Desc | Qty | Unit) | H: Notes | I: Doc Link | J: PDF Link | K: Generated Date | L: Status
@@ -80,21 +80,21 @@ Dashboard | 1 | 750000 | Please pay via bank transfer.
 ```
 *(Multiline items: put each line as `Description | Qty | Unit` in the same cell. See examples in the repository.)*
 
-## ⚙️ Panel Options
+## Panel Options
 - **Tax Rate (%), Discount (%)** → totals will be computed as `total = subtotal + tax − discount`.
 - **Default Status** → value written back to the Status column.
 - **Send Email** → sends PDF to the client email (if present).
 
-## 🧰 Troubleshooting
+## Troubleshooting
 - **Invalid regular expression error** → ensure `Utils_StringUtils.parseItemsMultiline` uses **non-regex** split (the provided code already does).
 - **Invalid or unexpected token** → re-paste `Services_EmailService.gs` from this repo to remove hidden characters.
 - **Missing permissions prompt** → run once and grant scopes; switch to **V8 runtime** in Project Settings.
 - **File/Folder not found** → verify **Template Doc ID** and **Output Folder ID**.
 
-## 📝 Versioning & Changelog
+## Versioning & Changelog
 We follow Keep a Changelog and Conventional Commits. See `CHANGELOG.md`.
 
-## 🤝 Contributing
+## Contributing
 Contributions are welcome! See `CONTRIBUTING.md`.
 
 ## 📜 License
