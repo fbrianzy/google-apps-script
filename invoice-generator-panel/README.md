@@ -98,4 +98,4 @@ We follow Keep a Changelog and Conventional Commits. See `CHANGELOG.md`.
 Contributions are welcome! See `CONTRIBUTING.md`.
 
 ## 📜 License
-MIT © 2025 Bagus Febriansyah Pratama
+MIT © 2025 fbrianzy
