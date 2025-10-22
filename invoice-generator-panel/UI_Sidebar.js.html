@@ -1,0 +1,77 @@
+<script>
+(function () {
+  const $ = (id) => document.getElementById(id);
+  const status = $('status');
+
+  function getPayload() {
+    return {
+      sheetName: $('sheetName').value.trim(),
+      startRow: parseInt($('startRow').value, 10) || 2,
+      endRow: parseInt($('endRow').value, 10) || parseInt($('startRow').value, 10) || 2,
+      templateDocId: $('templateDocId').value.trim(),
+      outputFolderId: $('outputFolderId').value.trim(),
+
+      colClientName: $('colClientName').value.trim(),
+      colClientEmail: $('colClientEmail').value.trim(),
+      colInvoiceDate: $('colInvoiceDate').value.trim(),
+      colDueDate: $('colDueDate').value.trim(),
+      colCurrency: $('colCurrency').value.trim(),
+      colItems: $('colItems').value.trim(),
+      colNotes: $('colNotes').value.trim(),
+
+      colDocLink: $('colDocLink').value.trim(),
+      colPdfLink: $('colPdfLink').value.trim(),
+      colGeneratedDate: $('colGeneratedDate').value.trim(),
+      colStatus: $('colStatus').value.trim(),
+      colInvoiceNumber: $('colInvoiceNumber').value.trim(),
+
+      taxRate: parseFloat($('taxRate').value) || 0,
+      discount: parseFloat($('discount').value) || 0,
+      defaultStatus: $('defaultStatus').value,
+      sendEmail: $('sendEmail').checked
+    };
+  }
+
+  function setStatus(msg) {
+    status.textContent = msg;
+  }
+
+  $('btnOpenTemplate').addEventListener('click', function() {
+    const id = $('templateDocId').value.trim();
+    if (!id) return alert('Please enter a Template Doc ID first.');
+    window.open('https://docs.google.com/document/d/' + id + '/edit');
+  });
+
+  $('btnValidate').addEventListener('click', function() {
+    setStatus('Validating...');
+    google.script.run
+      .withSuccessHandler(res => setStatus(res && res.message ? res.message : 'OK'))
+      .withFailureHandler(err => setStatus('Error: ' + (err && err.message ? err.message : err)))
+      .runAction('validate', getPayload());
+  });
+
+  $('btnPreview').addEventListener('click', function() {
+    setStatus('Generating preview...');
+    google.script.run
+      .withSuccessHandler(res => {
+        const url = res && res.docUrl ? res.docUrl : '(no url)';
+        setStatus('Preview OK.\n' + url);
+      })
+      .withFailureHandler(err => setStatus('Error: ' + (err && err.message ? err.message : err)))
+      .runAction('preview', getPayload());
+  });
+
+  $('btnGenerate').addEventListener('click', function() {
+    setStatus('Generating invoices...');
+    google.script.run
+      .withSuccessHandler(res => {
+        const ms = res && res.durationMs ? res.durationMs : 0;
+        const sec = Math.round(ms / 1000);
+        const errs = (res && res.errors && res.errors.length) ? '\nErrors:\n- ' + res.errors.join('\n- ') : '';
+        setStatus((res && res.message ? res.message : 'Done') + `\n⏱️ Duration: ${sec}s` + errs);
+      })
+      .withFailureHandler(err => setStatus('Error: ' + (err && err.message ? err.message : err)))
+      .runAction('generate', getPayload());
+  });
+})();
+</script>
