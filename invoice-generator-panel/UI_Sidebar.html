@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+<head>
+  <base target="_top">
+  <meta charset="utf-8">
+  <?!= include('UI_Sidebar.css'); ?>
+</head>
+<body>
+  <div class="wrap">
+    <h2>Invoice Generator Panel</h2>
+
+    <div class="group">
+      <div class="title">1) Sheet & Rows</div>
+      <label>Sheet Name</label>
+      <input type="text" id="sheetName" placeholder="Leave blank for active sheet">
+      <div class="row">
+        <div class="field">
+          <label>Start Row</label>
+          <input type="number" id="startRow" min="2" value="2">
+        </div>
+        <div class="field">
+          <label>End Row</label>
+          <input type="number" id="endRow" min="2" placeholder="e.g., 50">
+        </div>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="title">2) Template & Output</div>
+      <label>Template Doc ID</label>
+      <input type="text" id="templateDocId" placeholder="1AbC... (Google Docs ID)">
+      <div class="row">
+        <div class="field">
+          <label>Output Folder ID</label>
+          <input type="text" id="outputFolderId" placeholder="1XyZ... (Drive Folder ID)">
+        </div>
+        <div class="field">
+          <label>&nbsp;</label>
+          <button id="btnOpenTemplate">Open Template</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="title">3) Column Mapping (Letters)</div>
+      <div class="row">
+        <div class="field">
+          <label>Client Name (e.g., B)</label>
+          <input type="text" id="colClientName" placeholder="B">
+        </div>
+        <div class="field">
+          <label>Client Email (e.g., C)</label>
+          <input type="text" id="colClientEmail" placeholder="C">
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label>Invoice Date (yyyy-mm-dd) (e.g., D)</label>
+          <input type="text" id="colInvoiceDate" placeholder="D">
+        </div>
+        <div class="field">
+          <label>Due Date (yyyy-mm-dd) (e.g., E)</label>
+          <input type="text" id="colDueDate" placeholder="E">
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label>Currency (e.g., F)</label>
+          <input type="text" id="colCurrency" placeholder="F" value="F">
+        </div>
+        <div class="field">
+          <label>Items (multiline: Desc | Qty | Unit) (e.g., G)</label>
+          <input type="text" id="colItems" placeholder="G">
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label>Notes (e.g., H)</label>
+          <input type="text" id="colNotes" placeholder="H">
+        </div>
+        <div class="field">
+          <label>Invoice Number (optional, e.g., A)</label>
+          <input type="text" id="colInvoiceNumber" placeholder="A">
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label>Doc Link Column (e.g., I)</label>
+          <input type="text" id="colDocLink" placeholder="I">
+        </div>
+        <div class="field">
+          <label>PDF Link Column (e.g., J)</label>
+          <input type="text" id="colPdfLink" placeholder="J">
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label>Generated Date Column (optional)</label>
+          <input type="text" id="colGeneratedDate" placeholder="K">
+        </div>
+        <div class="field">
+          <label>Status Column (optional)</label>
+          <input type="text" id="colStatus" placeholder="L">
+        </div>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="title">4) Options</div>
+      <div class="row">
+        <div class="field">
+          <label>Tax Rate (%)</label>
+          <input type="number" id="taxRate" placeholder="0" value="0" min="0">
+        </div>
+        <div class="field">
+          <label>Discount (%)</label>
+          <input type="number" id="discount" placeholder="0" value="0" min="0">
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label>Default Status</label>
+          <select id="defaultStatus">
+            <option>Draft</option>
+            <option>Sent</option>
+            <option>Paid</option>
+            <option>Overdue</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>&nbsp;</label>
+          <label><input type="checkbox" id="sendEmail"> Send Email to Client</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <button class="primary" id="btnPreview">Preview (1st row)</button>
+      <button id="btnValidate">Validate</button>
+      <button class="ghost" id="btnGenerate">Generate</button>
+    </div>
+
+    <div class="status" id="status"></div>
+  </div>
+
+  <?!= include('UI_Sidebar.js'); ?>
+</body>
+</html>
