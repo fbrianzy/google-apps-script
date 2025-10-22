@@ -97,5 +97,5 @@ We follow Keep a Changelog and Conventional Commits. See `CHANGELOG.md`.
 ## Contributing
 Contributions are welcome! See `CONTRIBUTING.md`.
 
-## 📜 License
+## License
 MIT © 2025 fbrianzy
