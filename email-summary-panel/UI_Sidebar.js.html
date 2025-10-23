@@ -1,0 +1,52 @@
+<script>
+(function () {
+  const $ = (id) => document.getElementById(id);
+  const status = $('status');
+
+  function getPayload() {
+    return {
+      sheetName: $('sheetName').value.trim() || 'Emails',
+      dateStart: $('dateStart').value.trim(),
+      dateEnd: $('dateEnd').value.trim(),
+      label: $('label').value.trim(),
+      query: $('query').value.trim(),
+      maxEmails: parseInt($('maxEmails').value, 10) || 100,
+      writeMode: $('writeMode').value,
+      previewCount: 5
+    };
+  }
+
+  function setStatus(msg) { status.textContent = msg; }
+
+  $('btnValidate').addEventListener('click', function() {
+    setStatus('Validating...');
+    google.script.run
+      .withSuccessHandler(res => setStatus(res && res.message ? res.message : 'OK'))
+      .withFailureHandler(err => setStatus('Error: ' + (err && err.message ? err.message : err)))
+      .runAction('validate', getPayload());
+  });
+
+  $('btnPreview').addEventListener('click', function() {
+    setStatus('Fetching preview...');
+    google.script.run
+      .withSuccessHandler(res => {
+        const count = res && res.sample ? res.sample.length : 0;
+        const lines = (res.sample || []).map(x => `• ${x.date} — ${x.fromName} — ${x.subject}`).join('\n');
+        setStatus(`Preview ${count} email(s):\n` + lines);
+      })
+      .withFailureHandler(err => setStatus('Error: ' + (err && err.message ? err.message : err)))
+      .runAction('preview', getPayload());
+  });
+
+  $('btnFetch').addEventListener('click', function() {
+    setStatus('Fetching & writing to sheet...');
+    google.script.run
+      .withSuccessHandler(res => {
+        const sec = Math.round((res.durationMs || 0) / 1000);
+        setStatus(`${res.message}\n⏱️ Duration: ${sec}s\nQuery: ${res.query}`);
+      })
+      .withFailureHandler(err => setStatus('Error: ' + (err && err.message ? err.message : err)))
+      .runAction('fetch', getPayload());
+  });
+})();
+</script>
